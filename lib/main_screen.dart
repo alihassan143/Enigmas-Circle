@@ -21,12 +21,9 @@ class _MainScreenState extends State<MainScreen> {
       body: Container(
         width: width,
         height: height,
-        decoration: BoxDecoration(
-          image: DecorationImage(image: AssetImage("assets/splash.png"),
-          fit: BoxFit.fill
-          
-          )
-        ),
+        decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("assets/splash.png"), fit: BoxFit.fill)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -42,22 +39,36 @@ class _MainScreenState extends State<MainScreen> {
             ),
             const Spacer(),
             Center(
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFFFD700),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)),
-                      fixedSize: Size(width * 0.9, height * 0.05)),
-                  onPressed: () {
-                    Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(builder: (ctx) => const MyHomePage()),
-                        (route) => false);
-                  },
-                  child: const Text(
-                    "Sign in",
-                    style: TextStyle(color: Colors.black, fontSize: 18),
-                  )),
+              child: Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    gradient: const LinearGradient(colors: [
+                      Color(0xFFb38728),
+                      Color(0xFFfcf6ba),
+                      Color(0xFFbf953f),
+                      Color(0xFFfbf5b7),
+                      Color(0xFFaa771c)
+                    ])),
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.transparent,
+                        foregroundColor: Colors.transparent,
+                        shadowColor: Colors.transparent,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        fixedSize: Size(width * 0.9, height * 0.05)),
+                    onPressed: () {
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (ctx) => const MyHomePage()),
+                          (route) => false);
+                    },
+                    child: const Text(
+                      "Sign in",
+                      style: TextStyle(color: Colors.black, fontSize: 18),
+                    )),
+              ),
             ),
             Padding(
               padding: EdgeInsets.only(
