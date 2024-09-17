@@ -1,7 +1,9 @@
 import 'package:enimacircle/home_screen.dart';
+import 'package:enimacircle/navigation_service.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:video_player/video_player.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -11,6 +13,18 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  late final VideoPlayerController controller;
+  @override
+  void initState() {
+    super.initState();
+    controller = VideoPlayerController.asset("assets/card_video.mp4",
+        videoPlayerOptions: VideoPlayerOptions())
+      ..initialize().then((val) {
+        setState(() {});
+        controller.play();
+      });
+  }
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.sizeOf(context).height;
@@ -21,9 +35,7 @@ class _MainScreenState extends State<MainScreen> {
       body: Container(
         width: width,
         height: height,
-        decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("assets/splash.png"), fit: BoxFit.fill)),
+        decoration: const BoxDecoration(color: Colors.black),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -32,12 +44,19 @@ class _MainScreenState extends State<MainScreen> {
             ),
             Center(
               child: Image.asset(
-                "assets/top.PNG",
-                width: height * 0.3,
-                height: height * 0.3,
+                "assets/top.png",
+                width: height * 0.2,
+                height: height * 0.2,
               ),
             ),
             const Spacer(),
+            AspectRatio(
+              aspectRatio: controller.value.aspectRatio,
+              child: VideoPlayer(controller),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
             Center(
               child: Container(
                 decoration: BoxDecoration(
@@ -58,11 +77,9 @@ class _MainScreenState extends State<MainScreen> {
                             borderRadius: BorderRadius.circular(10)),
                         fixedSize: Size(width * 0.9, height * 0.05)),
                     onPressed: () {
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                              builder: (ctx) => const MyHomePage()),
-                          (route) => false);
+                      NavigationService.replaceScreen(const MyHomePage(
+                          navigationLockUrl: "https://enigmascircle.com/",
+                          openUrl: "https://enigmascircle.com/login"));
                     },
                     child: const Text(
                       "Sign in",
@@ -98,15 +115,29 @@ class _MainScreenState extends State<MainScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Image.asset(
-                  "assets/left.PNG",
-                  width: height * 0.13,
-                  height: height * 0.13,
+                GestureDetector(
+                  onTap: () {
+                    NavigationService.replaceScreen(const MyHomePage(
+                        navigationLockUrl: "https://www.enigmaaviation.com/",
+                        openUrl: "https://www.enigmaaviation.com"));
+                  },
+                  child: Image.asset(
+                    "assets/left.PNG",
+                    width: height * 0.13,
+                    height: height * 0.13,
+                  ),
                 ),
-                Image.asset(
-                  "assets/right.PNG",
-                  width: height * 0.13,
-                  height: height * 0.13,
+                GestureDetector(
+                  onTap: () {
+                    NavigationService.replaceScreen(const MyHomePage(
+                        navigationLockUrl: "https://www.enigmasvault.com/",
+                        openUrl: "https://www.enigmasvault.com"));
+                  },
+                  child: Image.asset(
+                    "assets/right.PNG",
+                    width: height * 0.13,
+                    height: height * 0.13,
+                  ),
                 ),
               ],
             ),

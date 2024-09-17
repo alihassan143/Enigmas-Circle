@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+  final String navigationLockUrl;
+  final String openUrl;
+
+  const MyHomePage(
+      {super.key, required this.navigationLockUrl, required this.openUrl});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -29,14 +33,16 @@ class _MyHomePageState extends State<MyHomePage> {
           },
           onWebResourceError: (WebResourceError error) {},
           onNavigationRequest: (NavigationRequest request) {
-            if (request.url.startsWith('https://enigmascircle.com/')) {
+            // 'https://enigmascircle.com/'
+            if (request.url.startsWith(widget.navigationLockUrl)) {
               return NavigationDecision.navigate;
             }
             return NavigationDecision.prevent;
           },
         ),
       )
-      ..loadRequest(Uri.parse('https://enigmascircle.com/login'));
+      // 'https://enigmascircle.com/login'
+      ..loadRequest(Uri.parse(widget.openUrl));
     // TODO: implement initState
     super.initState();
   }
