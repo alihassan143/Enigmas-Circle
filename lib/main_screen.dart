@@ -40,7 +40,7 @@ class _MainScreenState extends State<MainScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Spacer(
-              flex: 2,
+              flex: 1,
             ),
             Center(
               child: Image.asset(
@@ -123,8 +123,9 @@ class _MainScreenState extends State<MainScreen> {
                   },
                   child: Image.asset(
                     "assets/left.PNG",
-                    width: height * 0.13,
-                    height: height * 0.13,
+                    width: height * 0.2,
+                    height: height * 0.2,
+                    fit: BoxFit.cover,
                   ),
                 ),
                 GestureDetector(
