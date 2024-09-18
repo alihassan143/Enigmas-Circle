@@ -109,8 +109,8 @@ class _MainScreenState extends State<MainScreen> {
                             fontSize: 14, decoration: TextDecoration.underline))
                   ])),
             ),
-            const SizedBox(
-              height: 40,
+            SizedBox(
+              height: height * 0.005,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -143,7 +143,7 @@ class _MainScreenState extends State<MainScreen> {
               ],
             ),
             SizedBox(
-              height: height * 0.05,
+              height: height * 0.03,
             )
           ],
         ),
